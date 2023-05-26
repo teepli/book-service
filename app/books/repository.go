@@ -2,7 +2,6 @@ package books
 
 import (
 	"database/sql"
-	"errors"
 )
 
 type repository struct {
@@ -54,7 +53,11 @@ func (r repository) getAllBooks() ([]BookResponse, error) {
 
 	return books, nil
 }
-func (r repository) deleteBook(id string) (string, error) {
-	err := errors.New("not implemented")
-	return "bookRepo", err
+func (r repository) deleteBook(id string) (int64, error) {
+	count, err := r.db.Exec(`DELETE from books where id = $1`, id)
+	if err != nil {
+		return -1, err
+	}
+
+	return count.RowsAffected()
 }

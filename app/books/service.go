@@ -1,7 +1,7 @@
 package books
 
 import (
-	"errors"
+	"fmt"
 )
 
 type service struct {
@@ -34,7 +34,13 @@ func (s service) getAllBooks() ([]BookResponse, error) {
 	}
 	return books, nil
 }
-func (s service) deleteBook(id string) (string, error) {
-	err := errors.New("not implemented")
-	return "bookRepo", err
+func (s service) deleteBook(id string) error {
+	count, err := s.repo.deleteBook(id)
+	if err != nil {
+		return err
+	}
+	if count < 1 {
+		return fmt.Errorf(`Book with id %s not found`, id)
+	}
+	return nil
 }

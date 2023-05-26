@@ -6,14 +6,14 @@ type BookService interface {
 	createBook(bq BookQuery) (int, error)
 	getAllBooks() ([]BookResponse, error)
 	getBook(id string) (BookResponse, error)
-	deleteBook(id string) (string, error)
+	deleteBook(id string) error
 }
 
 type BookRepository interface {
 	createBook(bq BookQuery) (int, error)
 	getAllBooks() ([]BookResponse, error)
 	getBook(id string) (BookResponse, error)
-	deleteBook(id string) (string, error)
+	deleteBook(id string) (int64, error)
 }
 
 type BookApi interface {
