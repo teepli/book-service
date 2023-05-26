@@ -27,10 +27,26 @@ func (r repository) getBook(id string) (string, error) {
 	err := errors.New("not implemented")
 	return "bookRepo", err
 }
-func (r repository) getAllBooks() ([]string, error) {
-	err := errors.New("not implemented")
-	strArr := []string{"Abc"}
-	return strArr, err
+func (r repository) getAllBooks() ([]BookResponse, error) {
+	rows, err := r.db.Query(
+		`SELECT id, title, author, year, publisher, description FROM books`)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	books := []BookResponse{}
+
+	for rows.Next() {
+		var b BookResponse
+		if err := rows.Scan(&b.Id, &b.Title, &b.Author, &b.Year, &b.Publisher, &b.Description); err != nil {
+			return nil, err
+		}
+		books = append(books, b)
+	}
+
+	return books, nil
 }
 func (r repository) deleteBook(id string) (string, error) {
 	err := errors.New("not implemented")
