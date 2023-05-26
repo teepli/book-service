@@ -16,7 +16,10 @@ func NewApp(db *sql.DB) App {
 }
 
 func (a *App) Initialize() {
-	r := gin.Default()
-	books.NewBookRoutes(r)
-	r.Run(":9000")
+	router := gin.Default()
+
+	repo := books.NewRepository(a.DB)
+	service := books.NewService(repo)
+	books.NewApi(router, service)
+	router.Run(":9000")
 }
