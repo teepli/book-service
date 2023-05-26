@@ -19,13 +19,14 @@ func InitDatabase() (*sql.DB, error) {
 }
 
 func PrepareTables(db *sql.DB) {
-	createBooksTable := `CREATE TABLE if not exists books (
+	createBooksTable := `CREATE TABLE IF NOT EXISTS books (
 		id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 		title TEXT NOT NULL,
 		author TEXT NOT NULL,
-		year INT,
+		year INT NOT NULL,
 		publisher TEXT,
-		description TEXT
+		description TEXT,
+		UNIQUE(title, author, year)
 	);`
 
 	statement, err := db.Prepare(createBooksTable)

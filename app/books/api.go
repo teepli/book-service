@@ -1,6 +1,8 @@
 package books
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,12 +26,19 @@ func NewApi(g *gin.Engine, s BookService) BookApi {
 }
 
 func (a api) createBook(c *gin.Context) {
-	b, err := a.service.createBook("1")
-	if err != nil {
-		c.Status(404)
+	body := BookQuery{}
+	if err := c.BindJSON(&body); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	c.JSON(200, b)
+
+	id, err := a.service.createBook(body)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(200, gin.H{"id": id})
 }
 func (a api) getBook(c *gin.Context) {
 	b, err := a.service.getBook("1")
