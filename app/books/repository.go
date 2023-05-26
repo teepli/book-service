@@ -23,10 +23,16 @@ func (r repository) createBook(bq BookQuery) (int, error) {
 	return bookId, err
 }
 
-func (r repository) getBook(id string) (string, error) {
-	err := errors.New("not implemented")
-	return "bookRepo", err
+func (r repository) getBook(id string) (BookResponse, error) {
+	b := BookResponse{}
+	err := r.db.QueryRow(`
+		SELECT id, title, author, year, publisher, description
+		FROM books
+		WHERE id = $1`,
+		id).Scan(&b.Id, &b.Title, &b.Author, &b.Year, &b.Publisher, &b.Description)
+	return b, err
 }
+
 func (r repository) getAllBooks() ([]BookResponse, error) {
 	rows, err := r.db.Query(
 		`SELECT id, title, author, year, publisher, description FROM books`)

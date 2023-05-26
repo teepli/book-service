@@ -5,14 +5,14 @@ import "github.com/gin-gonic/gin"
 type BookService interface {
 	createBook(bq BookQuery) (int, error)
 	getAllBooks() ([]BookResponse, error)
-	getBook(id string) (string, error)
+	getBook(id string) (BookResponse, error)
 	deleteBook(id string) (string, error)
 }
 
 type BookRepository interface {
 	createBook(bq BookQuery) (int, error)
 	getAllBooks() ([]BookResponse, error)
-	getBook(id string) (string, error)
+	getBook(id string) (BookResponse, error)
 	deleteBook(id string) (string, error)
 }
 

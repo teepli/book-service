@@ -40,8 +40,10 @@ func (a api) createBook(c *gin.Context) {
 
 	c.JSON(200, gin.H{"id": id})
 }
+
 func (a api) getBook(c *gin.Context) {
-	b, err := a.service.getBook("1")
+	id := c.Param("id")
+	b, err := a.service.getBook(id)
 	if err != nil {
 		c.Status(404)
 		return
