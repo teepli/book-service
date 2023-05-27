@@ -9,7 +9,7 @@ type BookQuery struct {
 }
 
 type BookResponse struct {
-	Id string `json:"id,omitempty"`
+	Id int `json:"id,omitempty"`
 	BookQuery
 }
 
@@ -21,4 +21,8 @@ type BookFilterParams struct {
 
 type IdParam struct {
 	Id int `uri:"id" binding:"required,numeric"`
+}
+
+type CreateBookResponse struct {
+	Id int `json:"id" binding:"required"`
 }

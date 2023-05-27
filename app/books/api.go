@@ -34,7 +34,8 @@ func (a api) createBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"id": id})
+	response := CreateBookResponse{Id: id}
+	c.JSON(200, response)
 }
 
 func (a api) getBook(c *gin.Context) {
