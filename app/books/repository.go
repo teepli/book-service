@@ -37,7 +37,7 @@ func (r repository) getAllBooks(params BookFilterParams) ([]BookResponse, error)
 		SELECT id, title, author, year, publisher, description
 		FROM books
 		WHERE
-		(year LIKE '%' || $1 || '%' OR $1 IS NULL) AND
+		(year = $1 OR $1 IS NULL) AND
 		(author LIKE '%' || $2 || '%' OR $2 IS NULL) AND
 		(publisher LIKE '%' || $3 || '%' OR $3 IS NULL)
 		`, params.Year, params.Author, params.Publisher)
