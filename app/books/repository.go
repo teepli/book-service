@@ -59,6 +59,7 @@ func (r repository) getAllBooks(params BookFilterParams) ([]BookResponse, error)
 
 	return books, nil
 }
+
 func (r repository) deleteBook(id int) (int64, error) {
 	count, err := r.db.Exec(`
 		DELETE FROM books WHERE id = $1

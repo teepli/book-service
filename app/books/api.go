@@ -6,10 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func failFunction(c *gin.Context) {
-	c.AbortWithStatus(404)
-}
-
 type api struct {
 	service BookService
 }
@@ -72,6 +68,7 @@ func (a api) getAllBooks(c *gin.Context) {
 
 	c.JSON(200, books)
 }
+
 func (a api) deleteBook(c *gin.Context) {
 	param := IdParam{}
 	if err := c.ShouldBindUri(&param); err != nil {

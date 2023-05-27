@@ -19,6 +19,7 @@ func (s service) createBook(bq BookQuery) (int, error) {
 	}
 	return id, nil
 }
+
 func (s service) getBook(id int) (BookResponse, error) {
 	book, err := s.repo.getBook(id)
 	if err != nil {
@@ -34,6 +35,7 @@ func (s service) getAllBooks(params BookFilterParams) ([]BookResponse, error) {
 	}
 	return books, nil
 }
+
 func (s service) deleteBook(id int) error {
 	count, err := s.repo.deleteBook(id)
 	if err != nil {
