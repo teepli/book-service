@@ -22,7 +22,7 @@ func (r repository) createBook(bq BookQuery) (int, error) {
 	return bookId, err
 }
 
-func (r repository) getBook(id string) (BookResponse, error) {
+func (r repository) getBook(id int) (BookResponse, error) {
 	b := BookResponse{}
 	err := r.db.QueryRow(`
 		SELECT id, title, author, year, publisher, description
@@ -59,7 +59,7 @@ func (r repository) getAllBooks(params BookFilterParams) ([]BookResponse, error)
 
 	return books, nil
 }
-func (r repository) deleteBook(id string) (int64, error) {
+func (r repository) deleteBook(id int) (int64, error) {
 	count, err := r.db.Exec(`
 		DELETE FROM books WHERE id = $1
 		`, id)

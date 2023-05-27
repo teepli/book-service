@@ -19,7 +19,7 @@ func (s service) createBook(bq BookQuery) (int, error) {
 	}
 	return id, nil
 }
-func (s service) getBook(id string) (BookResponse, error) {
+func (s service) getBook(id int) (BookResponse, error) {
 	book, err := s.repo.getBook(id)
 	if err != nil {
 		return book, err
@@ -34,13 +34,13 @@ func (s service) getAllBooks(params BookFilterParams) ([]BookResponse, error) {
 	}
 	return books, nil
 }
-func (s service) deleteBook(id string) error {
+func (s service) deleteBook(id int) error {
 	count, err := s.repo.deleteBook(id)
 	if err != nil {
 		return err
 	}
 	if count < 1 {
-		return fmt.Errorf(`Book with id %s not found`, id)
+		return fmt.Errorf(`Book with id %d not found`, id)
 	}
 	return nil
 }

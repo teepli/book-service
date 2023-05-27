@@ -42,8 +42,13 @@ func (a api) createBook(c *gin.Context) {
 }
 
 func (a api) getBook(c *gin.Context) {
-	id := c.Param("id")
-	b, err := a.service.getBook(id)
+	param := IdParam{}
+	if err := c.ShouldBindUri(&param); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	b, err := a.service.getBook(param.Id)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
@@ -68,8 +73,13 @@ func (a api) getAllBooks(c *gin.Context) {
 	c.JSON(200, books)
 }
 func (a api) deleteBook(c *gin.Context) {
-	id := c.Param("id")
-	err := a.service.deleteBook(id)
+	param := IdParam{}
+	if err := c.ShouldBindUri(&param); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	err := a.service.deleteBook(param.Id)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return

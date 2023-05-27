@@ -18,3 +18,7 @@ type BookFilterParams struct {
 	Year      *int    `form:"year" binding:"omitempty,numeric"`
 	Publisher *string `form:"publisher,omitempty" binding:"omitempty,notEmptyString"`
 }
+
+type IdParam struct {
+	Id int `uri:"id" binding:"required,numeric"`
+}
