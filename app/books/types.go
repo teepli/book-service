@@ -12,3 +12,9 @@ type BookResponse struct {
 	Id string `json:"id,omitempty"`
 	BookQuery
 }
+
+type BookFilterParams struct {
+	Author    *string `form:"author" binding:"omitempty,notEmptyString"`
+	Year      *int    `form:"year" binding:"omitempty,numeric"`
+	Publisher *string `form:"publisher,omitempty" binding:"omitempty,notEmptyString"`
+}

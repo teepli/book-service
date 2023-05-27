@@ -48,14 +48,23 @@ func (a api) getBook(c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
 	c.JSON(200, b)
 }
+
 func (a api) getAllBooks(c *gin.Context) {
-	books, err := a.service.getAllBooks()
+	queryParams := BookFilterParams{}
+	if err := c.ShouldBindQuery(&queryParams); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
+	books, err := a.service.getAllBooks(queryParams)
 	if err != nil {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
 	c.JSON(200, books)
 }
 func (a api) deleteBook(c *gin.Context) {
@@ -65,5 +74,6 @@ func (a api) deleteBook(c *gin.Context) {
 		c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
 	c.Status(http.StatusNoContent)
 }

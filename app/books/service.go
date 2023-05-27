@@ -27,8 +27,8 @@ func (s service) getBook(id string) (BookResponse, error) {
 	return book, nil
 }
 
-func (s service) getAllBooks() ([]BookResponse, error) {
-	books, err := s.repo.getAllBooks()
+func (s service) getAllBooks(params BookFilterParams) ([]BookResponse, error) {
+	books, err := s.repo.getAllBooks(params)
 	if err != nil {
 		return books, err
 	}
