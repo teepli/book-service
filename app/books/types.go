@@ -5,7 +5,7 @@ type BookQuery struct {
 	Author      string  `json:"author" binding:"required,notEmptyString"`
 	Year        int     `json:"year" binding:"required,numeric"`
 	Publisher   *string `json:"publisher" binding:"omitempty,notEmptyString"`
-	Description *string `json:"description" binding:"omitempty,notEmptyString"`
+	Description *string `json:"description" binding:"omitempty"`
 }
 
 type BookResponse struct {
