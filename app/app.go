@@ -19,6 +19,7 @@ func NewApp(db *sql.DB) App {
 
 func (a *App) Initialize() {
 	router := gin.New()
+	router.Use(gin.LoggerWithConfig(middleware.GetLoggerConfig(nil, nil, nil)))
 	router.Use(middleware.RequestIdInjector())
 	router.Use(gin.Recovery())
 
