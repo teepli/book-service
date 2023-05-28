@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/teepli/book-service/app/common"
 )
 
 type api struct {
@@ -24,7 +25,7 @@ func NewApi(g *gin.Engine, s BookService) BookApi {
 func (a api) createBook(c *gin.Context) {
 	body := BookQuery{}
 	if err := c.BindJSON(&body); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
@@ -41,7 +42,7 @@ func (a api) createBook(c *gin.Context) {
 func (a api) getBook(c *gin.Context) {
 	param := IdParam{}
 	if err := c.ShouldBindUri(&param); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
@@ -57,7 +58,7 @@ func (a api) getBook(c *gin.Context) {
 func (a api) getAllBooks(c *gin.Context) {
 	queryParams := BookFilterParams{}
 	if err := c.ShouldBindQuery(&queryParams); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
@@ -73,7 +74,7 @@ func (a api) getAllBooks(c *gin.Context) {
 func (a api) deleteBook(c *gin.Context) {
 	param := IdParam{}
 	if err := c.ShouldBindUri(&param); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
