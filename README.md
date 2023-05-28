@@ -37,4 +37,6 @@ Install GCC, such as [TDM GCC](https://jmeubank.github.io/tdm-gcc/download/)
   make run
   # Or build binaries
   make build
+  # Or build and run with docker
+  make docker-build && make docker-run
   ```

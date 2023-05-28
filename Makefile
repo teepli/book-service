@@ -13,3 +13,9 @@ clean:
 	rm bin/${BINARY_NAME}-darwin
 	rm bin/${BINARY_NAME}-linux
 	rm bin/${BINARY_NAME}-windows
+
+docker-build:
+	docker build . -t book-service
+
+docker-run:
+	docker run -p 9000:9000 book-service
