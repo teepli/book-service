@@ -17,7 +17,7 @@ import (
 const BOOK_BASE_ROUTE = "/books"
 
 func TestApi(t *testing.T) {
-	db, err := database.InitDatabase()
+	db, err := database.InitDatabase("file://../../migrations")
 	if err != nil {
 		log.Fatal(err.Error())
 	}

@@ -9,12 +9,11 @@ import (
 )
 
 func main() {
-	db, err := database.InitDatabase()
+	db, err := database.InitDatabase("file://migrations")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	database.PrepareTables(db)
 
 	a := app.NewApp(db)
 	a.Initialize()
