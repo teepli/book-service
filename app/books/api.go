@@ -42,13 +42,13 @@ func (a api) createBook(c *gin.Context) {
 func (a api) getBook(c *gin.Context) {
 	param := IdParam{}
 	if err := c.ShouldBindUri(&param); err != nil {
-		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
+		c.AbortWithError(http.StatusNotFound, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
 	b, err := a.service.getBook(param.Id)
 	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusNotFound, err)
 		return
 	}
 
@@ -74,13 +74,13 @@ func (a api) getAllBooks(c *gin.Context) {
 func (a api) deleteBook(c *gin.Context) {
 	param := IdParam{}
 	if err := c.ShouldBindUri(&param); err != nil {
-		c.AbortWithError(http.StatusBadRequest, common.NewValidationError(err.Error(), ""))
+		c.AbortWithError(http.StatusNotFound, common.NewValidationError(err.Error(), ""))
 		return
 	}
 
 	err := a.service.deleteBook(param.Id)
 	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		c.AbortWithError(http.StatusNotFound, err)
 		return
 	}
 

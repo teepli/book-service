@@ -67,15 +67,15 @@ func TestApi(t *testing.T) {
 		{"GET", BOOK_BASE_ROUTE + "?year=1997&publisher=scholastic%20point", nil, 200, (BOOKS_FILTERED_BY_YEAR_AND_PUBLISHER_RESPONSE), []BookResponse{}},
 
 		{"GET", BOOK_BASE_ROUTE + "/1", nil, 200, BOOK_ONE_GET_RESPONSE, BookResponse{}},
-		{"GET", BOOK_BASE_ROUTE + "/0", nil, 400, "", nil},
-		{"GET", BOOK_BASE_ROUTE + "/x", nil, 400, "", nil},
-		{"GET", BOOK_BASE_ROUTE + "/1.5", nil, 400, "", nil},
+		{"GET", BOOK_BASE_ROUTE + "/0", nil, 404, "", nil},
+		{"GET", BOOK_BASE_ROUTE + "/x", nil, 404, "", nil},
+		{"GET", BOOK_BASE_ROUTE + "/1.5", nil, 404, "", nil},
 
 		{"DELETE", BOOK_BASE_ROUTE + "/1", nil, 204, "", nil},
-		{"DELETE", BOOK_BASE_ROUTE + "/1", nil, 400, "", nil},
-		{"DELETE", BOOK_BASE_ROUTE + "/0", nil, 400, "", nil},
-		{"DELETE", BOOK_BASE_ROUTE + "/x", nil, 400, "", nil},
-		{"DELETE", BOOK_BASE_ROUTE + "/1.5", nil, 400, "", nil},
+		{"DELETE", BOOK_BASE_ROUTE + "/1", nil, 404, "", nil},
+		{"DELETE", BOOK_BASE_ROUTE + "/0", nil, 404, "", nil},
+		{"DELETE", BOOK_BASE_ROUTE + "/x", nil, 404, "", nil},
+		{"DELETE", BOOK_BASE_ROUTE + "/1.5", nil, 404, "", nil},
 
 		{"GET", BOOK_BASE_ROUTE, nil, 200, (BOOKS_FINAL_STATE), []BookResponse{}},
 	}
