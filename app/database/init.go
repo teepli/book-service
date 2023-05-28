@@ -11,13 +11,18 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func InitDatabase(migrationSource string) (*sql.DB, error) {
-	con, err := openConnection()
+type DBOptions struct {
+	MigrationSource string
+	DBPath          string
+}
+
+func InitDatabase(opts DBOptions) (*sql.DB, error) {
+	con, err := openConnection(opts)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	err = migrateSQLite(con, migrationSource)
+	err = migrateSQLite(con, opts.MigrationSource)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -25,14 +30,14 @@ func InitDatabase(migrationSource string) (*sql.DB, error) {
 	return con, nil
 }
 
-func openConnection() (*sql.DB, error) {
-	file, err := os.Create("books.db")
+func openConnection(opts DBOptions) (*sql.DB, error) {
+	file, err := os.Create(opts.DBPath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	file.Close()
 
-	return sql.Open("sqlite3", "./books.db")
+	return sql.Open("sqlite3", opts.DBPath)
 }
 
 func migrateSQLite(db *sql.DB, migrationSource string) error {

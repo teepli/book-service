@@ -17,12 +17,16 @@ import (
 const BOOK_BASE_ROUTE = "/books"
 
 func TestApi(t *testing.T) {
-	db, err := database.InitDatabase("file://../../migrations")
+	opts := database.DBOptions{
+		MigrationSource: "file://../../migrations",
+		DBPath:          "../../books_test.db",
+	}
+	db, err := database.InitDatabase(opts)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer db.Close()
-	database.PrepareTables(db)
+
 	g := gin.Default()
 	tools.RegisterCustomValidators()
 

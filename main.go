@@ -9,7 +9,12 @@ import (
 )
 
 func main() {
-	db, err := database.InitDatabase("file://migrations")
+	opts := database.DBOptions{
+		MigrationSource: "file://migrations",
+		DBPath:          "./book.db",
+	}
+
+	db, err := database.InitDatabase(opts)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
